@@ -8,6 +8,7 @@ import java.util.Scanner;
  */
 public class CarGarage {
     public static void main(String[] args) {
+
         System.out.println("***********************");
         System.out.println("Welcome to the Garage");
         System.out.println("***********************\n");
@@ -26,28 +27,32 @@ public class CarGarage {
             System.out.println("Enter Car Color:");
             myCars[index].carColor = inputScanner.nextLine();
         }
-        System.out.println("Cars in Garage");
-        System.out.println("***************\n");
-        for (int carIndex = 0; carIndex < myCars.length; carIndex++) {
-            System.out.println("Car #" + (carIndex + 1) + ":");
-            System.out.println(myCars[carIndex].carMake);
-            System.out.println(myCars[carIndex].carModel);
-            System.out.println(myCars[carIndex].carColor);
-            System.out.println("\n");
+        Boolean gameFlag = true;
+        while (gameFlag) {
+            System.out.println("Cars in Garage");
+            System.out.println("***************\n");
+            for (int carIndex = 0; carIndex < myCars.length; carIndex++) {
+                System.out.println("Car #" + (carIndex + 1) + ":");
+                System.out.println(myCars[carIndex].carMake);
+                System.out.println(myCars[carIndex].carModel);
+                System.out.println(myCars[carIndex].carColor);
+                System.out.println("\n");
+            }
+            System.out.println("Select a car to use:");
+            int carChoice = Integer.valueOf(inputScanner.nextLine());
+            gameFlag = carOptions(inputScanner, carChoice, myCars);
         }
-        System.out.println("Select a car to use:");
-        int carChoice = Integer.valueOf(inputScanner.nextLine());
-        carOptions(inputScanner, carChoice, myCars);
     }
 
-    public static void carOptions(Scanner inputScanner, int carChoice, Car[] myCars) {
+    public static boolean carOptions(Scanner inputScanner, int carChoice, Car[] myCars) {
         while (true) {
             System.out.println("1. Start the car");
             System.out.println("2. Stop the car");
             System.out.println("3. Accelerate the car");
             System.out.println("4. Brake the car");
             System.out.println("5. Print Info");
-            System.out.println("6. Exit Program");
+            System.out.println("6. Choose Another Car");
+            System.out.println("7. Exit Program");
             int carOptionChoice = Integer.valueOf(inputScanner.nextLine());
             if (carOptionChoice == 1) {
                 try {
@@ -81,8 +86,11 @@ public class CarGarage {
                 }
             }else if(carOptionChoice == 6){
                 break;
+            }else if(carOptionChoice == 7){
+                return false;
             }
 
         }
+        return true;
     }
 }
